@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {IEmployee} from "@app/shared/types/models/employee";
-import {BehaviorSubject} from "rxjs";
-import {EmployeeService} from "@app/views/uits/public/about/employee/employee.service";
-import {AVATAR_DEFAULT_URL} from "@app/configs/app.config";
-import {TeacherDegree, TeacherRank} from "@app/views/uits/public/about/employee/teachers/teachers.models";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IEmployee } from '@app/shared/types/models/employee';
+import { BehaviorSubject } from 'rxjs';
+import { EmployeeService } from '@app/views/uits/public/about/employee/employee.service';
+import { AVATAR_DEFAULT_URL } from '@app/configs/app.config';
+import { TeacherDegree, TeacherRank } from '@app/views/uits/public/about/employee/teachers/teachers.models';
 
 @Component({
   selector: 'app-teacher',
   templateUrl: './teacher.component.html',
-  styleUrls: ['./teacher.component.css']
+  styleUrls: ['./teacher.component.scss']
 })
 export class TeacherComponent implements OnInit {
   id: number;
@@ -22,13 +22,12 @@ export class TeacherComponent implements OnInit {
 
   get fullName() {
     const teacher = this.teacher$.getValue();
-    return `${teacher.last_name} ${teacher.first_name} ${teacher.patronymic}`
+    return `${teacher.last_name} ${teacher.first_name} ${teacher.patronymic}`;
   }
 
   get shortName() {
     const teacher = this.teacher$.getValue();
-
-    return `${teacher.last_name} ${teacher.first_name[0]}. ${teacher.patronymic ? teacher.patronymic[0] + '.' : ''}`
+    return `${teacher.last_name} ${teacher.first_name[0]}. ${teacher.patronymic ? teacher.patronymic[0] + '.' : ''}`;
   }
 
   get position() {
@@ -36,14 +35,14 @@ export class TeacherComponent implements OnInit {
   }
 
   get degree() {
-    return TeacherDegree[this.teacher$.getValue().degree]
+    return TeacherDegree[this.teacher$.getValue().degree];
   }
 
   get rank() {
-    return TeacherRank[this.teacher$.getValue().rank]
+    return TeacherRank[this.teacher$.getValue().rank];
   }
 
-  get bio(){
+  get bio() {
     return this.teacher$.getValue().bio;
   }
 
@@ -56,8 +55,8 @@ export class TeacherComponent implements OnInit {
       this.id = +params['id'];
       this.employeeService.retrieveTeacher(this.id).subscribe(teacher => {
         this.teacher$.next(teacher);
-      })
-    })
+      });
+    });
   }
 
   protected readonly AVATAR_DEFAULT_URL = AVATAR_DEFAULT_URL;
